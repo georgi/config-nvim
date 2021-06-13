@@ -16,6 +16,7 @@ require('packer').startup(function()
   use 'onsails/lspkind-nvim'
   use 'wbthomason/packer.nvim'
   use 'neovim/nvim-lspconfig'
+  use 'creativenull/diagnosticls-nvim'
   use 'haorenW1025/completion-nvim'
   use 'folke/tokyonight.nvim'
   use {
@@ -24,7 +25,7 @@ require('packer').startup(function()
   }
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
   use 'nvim-treesitter/nvim-treesitter-textobjects'
-  use { 'camspiers/snap', rocks = { "fzy" } }
+  use { 'camspiers/snap' }
   use {
     "folke/trouble.nvim",
     requires = "kyazdani42/nvim-web-devicons",

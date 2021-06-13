@@ -4,6 +4,29 @@ local lsp_signature = require'lsp_signature'
 
 vim.cmd[[let g:completion_enable_auto_signature = 0]]
 
+require 'diagnosticls-nvim'.init {
+}
+
+local eslint = require 'diagnosticls-nvim.linters.eslint'
+local flake8 = require 'diagnosticls-nvim.linters.flake8'
+local prettier = require 'diagnosticls-nvim.formatters.prettier'
+local autopep8 = require 'diagnosticls-nvim.formatters.autopep8'
+
+require 'diagnosticls-nvim'.setup {
+  ['python'] = {
+    linter = flake8,
+    formatter = autopep8
+  },
+  ['javascript'] = {
+    linter = eslint,
+    formatter = prettier
+  },
+  ['javascriptreact'] = {
+    linter = eslint,
+    formatter = prettier
+  }
+}
+
 local on_attach = function(_, bufnr)
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
@@ -38,6 +61,7 @@ local on_attach = function(_, bufnr)
 end
 
 local servers = { "pyright", "bashls", "jsonls", "tsserver", "html", "yamlls", "solargraph", "java_language_server" }
+
 for _, lsp in ipairs(servers) do
     nvim_lsp[lsp].setup {
         on_attach = on_attach;
