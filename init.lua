@@ -2,8 +2,8 @@ require'packages'
 require'options'
 require'lsp'
 require'treesitter'
-require'snaps'
 require'mappings'
+require'snaps'
 
 vim.cmd[[autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif]]
 

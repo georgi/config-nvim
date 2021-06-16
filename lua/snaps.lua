@@ -2,7 +2,7 @@ local snap = require'snap'
 local fzf = snap.get'consumer.fzf'
 local selectFile = snap.get'select.file'
 
-snap.register.map({"n"}, {"fg"}, function ()
+snap.register.map({"n"}, {"<leader>fg"}, function ()
   snap.run {
     producer = snap.get'producer.ripgrep.vimgrep',
     select = snap.get'select.vimgrep'.select,
@@ -11,7 +11,7 @@ snap.register.map({"n"}, {"fg"}, function ()
   }
 end)
 
-snap.register.map({"n"}, {"ff"}, function ()
+snap.register.map({"n"}, {"<leader>ff"}, function ()
   snap.run {
     producer = snap.get'consumer.fzf'(snap.get'producer.ripgrep.file'),
     select = snap.get'select.file'.select,
@@ -20,7 +20,7 @@ snap.register.map({"n"}, {"ff"}, function ()
   }
 end)
 
-snap.register.map({"n"}, {"fo"}, function ()
+snap.register.map({"n"}, {"<leader>fo"}, function ()
   snap.run {
     producer = fzf(snap.get'producer.vim.oldfile'),
     select = selectFile.select,
@@ -28,7 +28,7 @@ snap.register.map({"n"}, {"fo"}, function ()
   }
 end)
 
-snap.register.map({"n"}, {"fb"}, function ()
+snap.register.map({"n"}, {"<leader>fb"}, function ()
   snap.run {
     producer = fzf(snap.get'producer.vim.buffer'),
     select = selectFile.select,
@@ -36,7 +36,7 @@ snap.register.map({"n"}, {"fb"}, function ()
   }
 end)
 
-snap.register.map({"n"}, {"fj"}, function ()
+snap.register.map({"n"}, {"<leader>fj"}, function ()
   snap.run {
     prompt = "JUMP",
     producer = snap.get'producer.vim.jumplist',
@@ -45,7 +45,7 @@ snap.register.map({"n"}, {"fj"}, function ()
   }
 end)
 
-snap.register.map({"n"}, {"fd"}, function ()
+snap.register.map({"n"}, {"<leader>fd"}, function ()
   snap.run {
     prompt = "CD",
     producer = snap.get'consumer.fzy'(snap.get'producer.luv.directory'),
