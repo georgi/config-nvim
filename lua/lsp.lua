@@ -1,30 +1,118 @@
 local nvim_lsp = require'lspconfig'
 local completion = require'completion'
 local lsp_signature = require'lsp_signature'
+local configs = require 'lspconfig/configs'
+local home = os.getenv('HOME')
 
-vim.cmd[[let g:completion_enable_auto_signature = 0]]
+-- use lsp_signature instead of native signature ui
+vim.g.completion_enable_auto_signature = false
 
-require 'diagnosticls-nvim'.init {
+-- require 'vim.lsp.log'.set_level("trace")
+
+local aurora = {
+  sourceName = 'aurora',
+  command = home..'/bin/aurora.sh',
+  debounce = 100,
+  args = { '%filepath' },
+  formatLines = 1,
+  parseJson = {
+    errorsRoot = "errors",
+    line = "line",
+    column = "char",
+    security = "severity",
+    message = "${description} ${code} [${name}]"
+  },
+  securities = {
+    error = 'error',
+    warning = 'warning',
+  },
 }
 
-local eslint = require 'diagnosticls-nvim.linters.eslint'
-local flake8 = require 'diagnosticls-nvim.linters.flake8'
-local prettier = require 'diagnosticls-nvim.formatters.prettier'
-local autopep8 = require 'diagnosticls-nvim.formatters.autopep8'
 
-require 'diagnosticls-nvim'.setup {
-  ['python'] = {
-    linter = flake8,
-    formatter = autopep8
+local eslint = {
+  sourceName = 'eslint',
+  command = 'eslint',
+  debounce = 100,
+  args = { '--stdin', '--stdin-filename', '%filepath', '--format', 'compact' },
+  offsetLine = 0,
+  offsetColumn = 0,
+  formatLines = 1,
+  formatPattern = {
+    [[.*: line (\d+), col (\d+), (\w+) (.*)(\r|\n)*$]],
+    {
+      line = 1,
+      column = 2,
+      security = 3,
+      message = 4,
+    },
   },
-  ['javascript'] = {
-    linter = eslint,
-    formatter = prettier
+  securities = {
+    Error = 'error',
+    Warning = 'warning',
   },
-  ['javascriptreact'] = {
-    linter = eslint,
-    formatter = prettier
-  }
+}
+
+local pyre = {
+  sourceName = 'pyre',
+  command = 'pyre',
+  args = {'-l', '%filepath', '--output', 'json'},
+  debounce = 1000,
+  parseJson = {
+    sourceName = "path",
+    sourceNameFilter = true,
+    line = "line",
+    column = "column",
+    endColumn = "stop_column",
+    endLine = "stop_line",
+    message = "${description} ${code} [${name}]"
+  },
+  securities = {
+  },
+}
+
+local flake8 = {
+  sourceName = 'flake8',
+  command = '/usr/local/bin/flake8',
+  args = {'-'},
+  debounce = 100,
+  offsetLine = 0,
+  offsetColumn = 0,
+  formatLines = 1,
+  formatPattern = {
+    [[.*:(\d+):(\d+): ([A-Z]\d+) (.*)(\r|\n)*$]],
+    {
+      line = 1,
+      column = 2,
+      security = 3,
+      message = 4,
+    },
+  },
+  securities = {
+    W = 'warning',
+    E = 'error',
+    F = 'error',
+    C = 'error',
+    N = 'error',
+  },
+}
+
+local prettier = {
+  sourceName = 'prettier',
+  command = 'prettier',
+  args = { '--stdin', '--stdin-filepath', '%filepath' },
+  rootPatterns = {
+    '.prettierrc',
+    '.prettierrc.json',
+    '.prettierrc.toml',
+    '.prettierrc.json',
+    '.prettierrc.yml',
+    '.prettierrc.yaml',
+    '.prettierrc.json5',
+    '.prettierrc.js',
+    '.prettierrc.cjs',
+    'prettier.config.js',
+    'prettier.config.cjs',
+  },
 }
 
 local on_attach = function(_, bufnr)
@@ -43,24 +131,23 @@ local on_attach = function(_, bufnr)
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
   buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
   buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
   buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
   buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
   buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
   buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
   buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-  buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-  buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-  buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+  buf_set_keymap('n', '<space>lr', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+  buf_set_keymap('n', '<space>la', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+  buf_set_keymap('n', '<space>ld', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+  buf_set_keymap("n", "<space>lf", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
   buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
   buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-  buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
-  buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+  -- buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
 end
 
-local servers = { "pyright", "bashls", "jsonls", "tsserver", "html", "yamlls", "solargraph", "java_language_server" }
+local servers = { "bashls", "jsonls", "html", "yamlls" }
 
 for _, lsp in ipairs(servers) do
     nvim_lsp[lsp].setup {
@@ -73,30 +160,58 @@ for _, lsp in ipairs(servers) do
     }
 end
 
-local home = os.getenv("HOME")
-local sumneko_root_path = home.."/lua-language-server"
-local sumneko_binary = home.."/lua-language-server/bin/macOS/lua-language-server"
+configs.hack = {
+  default_config = {
+    cmd = {"hh_client", "lsp", "--from", "vim"};
+    filetypes = {"php"};
+    root_dir = function(fname)
+      return home.."/www"
+    end;
+  };
+};
 
-nvim_lsp.sumneko_lua.setup {
-  cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"},
-  on_attach = on_attach;
-  settings = {
-    Lua = {
-      runtime = {
-          -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-          version = 'LuaJIT',
-          -- Setup your lua path
-          path = vim.split(package.path, ';')
-      },
-      diagnostics = {
-          -- Get the language server to recognize the `vim` global
-          globals = {'vim', 'use'}
-      },
-      workspace = {
-          -- Make the server aware of Neovim runtime files
-          library = {[vim.fn.expand('$VIMRUNTIME/lua')] = true, [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true}
-      }
-    }
-  }
+nvim_lsp.diagnosticls.setup {
+  filetypes = {"python", "javascript", "javascriptreact", "hack"},
+  cmd = {"node", home.."/diagnostic-languageserver/bin", "--stdio", "--log-level", "4"},
+  init_options = {
+    filetypes = {
+      python = {"flake8", "pyre"},
+      javascript = "eslint",
+      javascriptreact = "eslint",
+      hack = "aurora"
+    },
+    formatFiletypes = {
+      javascript = "prettier",
+      javascriptreact = "prettier",
+     },
+    linters = {
+      flake8 = flake8,
+      pyre = pyre,
+      eslint = eslint,
+      aurora = aurora
+    },
+    formatters = {
+      prettier = prettier
+    },
+  },
 }
 
+nvim_lsp.hack.setup {
+  on_attach = on_attach;
+}
+
+nvim_lsp.flow.setup {
+  cmd = {"flow", "lsp"};
+  root_dir = function(fname)
+    return home.."/www"
+  end;
+  on_attach = on_attach;
+}
+
+nvim_lsp.pyls.setup {
+  cmd = {home..'/bin/fbcode_pyls'};
+  root_dir = function(fname)
+      return home..'/fbsource'
+  end;
+  on_attach = on_attach;
+}
