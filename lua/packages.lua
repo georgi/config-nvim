@@ -13,46 +13,40 @@ require('packer').startup(function()
   use 'junegunn/vim-easy-align'
   use 'svermeulen/vim-subversive'
   use 'norcalli/nvim-terminal.lua'
-  use 'onsails/lspkind-nvim'
   use 'wbthomason/packer.nvim'
   use 'neovim/nvim-lspconfig'
+  use 'onsails/lspkind-nvim'
   use 'creativenull/diagnosticls-nvim'
   use 'haorenW1025/completion-nvim'
   use 'folke/tokyonight.nvim'
+  use 'vijaymarupudi/nvim-fzf'
+  use 'ibhagwan/fzf-lua'
   use {
     'hoob3rt/lualine.nvim',
-    requires = {'kyazdani42/nvim-web-devicons', opt = true}
+    requires = {'kyazdani42/nvim-web-devicons', opt = true},
   }
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
   use 'nvim-treesitter/nvim-treesitter-textobjects'
-  use { 'camspiers/snap' }
   use {
     "folke/trouble.nvim",
-    requires = "kyazdani42/nvim-web-devicons",
-    config = function()
-      require("trouble").setup {
-      }
-    end
+    requires = "kyazdani42/nvim-web-devicons"
   }
-  use {
-   "folke/which-key.nvim",
-   config = function()
-     require("which-key").setup {
-     }
-   end
-  }
+  use "folke/which-key.nvim"
   use "terrortylor/nvim-comment"
 end)
 
-require('nvim_comment').setup()
-require('lspkind').init()
-require'terminal'.setup()
-
 vim.cmd[[colorscheme gruvbox-flat]]
 
+require'fzf-lua'.setup {
+  preview_layout = 'vertical'
+}
 require('lualine').setup {
   options = {
     theme = 'gruvbox-flat';
   }
 }
-
+require("which-key").setup {}
+require('nvim_comment').setup()
+require("trouble").setup {}
+require'terminal'.setup()
+require('lspkind').init()

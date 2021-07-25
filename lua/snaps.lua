@@ -48,39 +48,39 @@ local fzf = snap.get'consumer.fzf'
 --   return positions(consumer)
 -- end
 -- 
-snap.register.map({"n"}, {"<leader><space>"}, function ()
-  snap.run {
-    producer = fzf(snap.get'producer.vim.oldfile'),
-    select = selectFile.select,
-    multiselect = selectFile.multiselect,
-  }
-end)
-
-snap.register.map({"n"}, {"<leader>fb"}, function ()
-  snap.run {
-    producer = fzf(snap.get'producer.vim.buffer'),
-    select = selectFile.select,
-    multiselect = selectFile.multiselect,
-  }
-end)
-
-snap.register.map({"n"}, {"<leader>fj"}, function ()
-  snap.run {
-    prompt = "JUMP",
-    producer = snap.get'producer.vim.jumplist',
-    select = snap.get'select.jumplist'.select,
-    views = {snap.get'preview.jumplist'}
-  }
-end)
-
-snap.register.map({"n"}, {"<leader>fd"}, function ()
-  snap.run {
-    prompt = "CD",
-    producer = fzf(snap.get'producer.luv.directory'),
-    select = snap.get'select.cwd'.select,
-  }
-end)
-
+-- snap.register.map({"n"}, {"<leader><space>"}, function ()
+--   snap.run {
+--     producer = fzf(snap.get'producer.vim.oldfile'),
+--     select = selectFile.select,
+--     multiselect = selectFile.multiselect,
+--   }
+-- end)
+-- 
+-- snap.register.map({"n"}, {"<leader>fb"}, function ()
+--   snap.run {
+--     producer = fzf(snap.get'producer.vim.buffer'),
+--     select = selectFile.select,
+--     multiselect = selectFile.multiselect,
+--   }
+-- end)
+-- 
+-- snap.register.map({"n"}, {"<leader>fj"}, function ()
+--   snap.run {
+--     prompt = "JUMP",
+--     producer = snap.get'producer.vim.jumplist',
+--     select = snap.get'select.jumplist'.select,
+--     views = {snap.get'preview.jumplist'}
+--   }
+-- end)
+-- 
+-- snap.register.map({"n"}, {"<leader>fd"}, function ()
+--   snap.run {
+--     prompt = "CD",
+--     producer = fzf(snap.get'producer.luv.directory'),
+--     select = snap.get'select.cwd'.select,
+--   }
+-- end)
+-- 
 local selectFile = snap.get'select.file'
 local previewFile = snap.get'preview.file'
 local selectVimgrep = snap.get'select.vimgrep'
@@ -99,7 +99,7 @@ end)
 
 snap.register.map({"n"}, {"<leader>fg"}, function ()
   snap.run {
-    prompt = "Biggrep",
+    prompt = "Grep",
     producer = fzf(ripgrepVimgrep),
     select = selectVimgrep.select,
     multiselect = selectVimgrep.multiselect,
