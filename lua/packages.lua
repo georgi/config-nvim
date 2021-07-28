@@ -38,7 +38,12 @@ end)
 vim.cmd[[colorscheme gruvbox-flat]]
 
 require'fzf-lua'.setup {
-  preview_layout = 'vertical'
+  preview_horizontal = 'right:50%',
+  flip_columns = 160,
+  win_height = 1.0,
+  win_width = 1.0,
+  win_border = false,
+  bat_theme = 'gruvbox-dark'
 }
 require('lualine').setup {
   options = {

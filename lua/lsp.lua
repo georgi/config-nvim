@@ -1,37 +1,17 @@
 local nvim_lsp = require'lspconfig'
 local completion = require'completion'
 local lsp_signature = require'lsp_signature'
-local configs = require 'lspconfig/configs'
 local home = os.getenv('HOME')
 
 -- use lsp_signature instead of native signature ui
 vim.g.completion_enable_auto_signature = false
 
--- require 'vim.lsp.log'.set_level("trace")
-
-local aurora = {
-  sourceName = 'aurora',
-  command = home..'.config/nvim/bin/aurora.sh',
-  debounce = 100,
-  args = { '%filepath' },
-  formatLines = 1,
-  parseJson = {
-    errorsRoot = "errors",
-    line = "line",
-    column = "char",
-    security = "severity",
-    message = "${description} ${code} [${name}]"
-  },
-  securities = {
-    error = 'error',
-    warning = 'warning',
-  },
-}
+require 'vim.lsp.log'.set_level("trace")
 
 
 local eslint = {
   sourceName = 'eslint',
-  command = 'eslint',
+  command = home..'/eslint',
   debounce = 100,
   args = { '--stdin', '--stdin-filename', '%filepath', '--format', 'compact' },
   offsetLine = 0,
@@ -52,27 +32,9 @@ local eslint = {
   },
 }
 
-local pyre = {
-  sourceName = 'pyre',
-  command = 'pyre',
-  args = {'-l', '%filepath', '--output', 'json'},
-  debounce = 1000,
-  parseJson = {
-    sourceName = "path",
-    sourceNameFilter = true,
-    line = "line",
-    column = "column",
-    endColumn = "stop_column",
-    endLine = "stop_line",
-    message = "${description} ${code} [${name}]"
-  },
-  securities = {
-  },
-}
-
 local flake8 = {
   sourceName = 'flake8',
-  command = '/usr/local/bin/flake8',
+  command = 'flake8',
   args = {'-'},
   debounce = 100,
   offsetLine = 0,
@@ -146,7 +108,7 @@ local on_attach = function(_, bufnr)
   -- buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
 end
 
-local servers = { "bashls", "jsonls", "html", "yamlls", "pyright" }
+local servers = { "bashls", "jsonls", "html", "yamlls", "pyright", "tsserver", "ocamlls", "elmls", "gdscript" }
 
 for _, lsp in ipairs(servers) do
     nvim_lsp[lsp].setup {
@@ -159,25 +121,14 @@ for _, lsp in ipairs(servers) do
     }
 end
 
-configs.hack = {
-  default_config = {
-    cmd = {"hh_client", "lsp", "--from", "vim"};
-    filetypes = {"php"};
-    root_dir = function(fname)
-      return home.."/www"
-    end;
-  };
-};
-
 nvim_lsp.diagnosticls.setup {
-  filetypes = {"python", "javascript", "javascriptreact", "hack"},
+  filetypes = {"python", "javascript", "javascriptreact"},
   cmd = {"node", home.."/diagnostic-languageserver/bin", "--stdio", "--log-level", "4"},
   init_options = {
     filetypes = {
-      python = {"flake8", "pyre"},
+      python = {"flake8"},
       javascript = "eslint",
       javascriptreact = "eslint",
-      hack = "aurora"
     },
     formatFiletypes = {
       javascript = "prettier",
@@ -185,9 +136,7 @@ nvim_lsp.diagnosticls.setup {
      },
     linters = {
       flake8 = flake8,
-      pyre = pyre,
       eslint = eslint,
-      aurora = aurora
     },
     formatters = {
       prettier = prettier
@@ -195,15 +144,8 @@ nvim_lsp.diagnosticls.setup {
   },
 }
 
-nvim_lsp.hack.setup {
-  on_attach = on_attach;
-}
-
 nvim_lsp.flow.setup {
-  cmd = {"flow", "lsp"};
-  root_dir = function(fname)
-    return home.."/www"
-  end;
+  cmd = {"/usr/local/bin/flow", "lsp"};
   on_attach = on_attach;
 }
 
