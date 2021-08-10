@@ -9,7 +9,7 @@ opt.dir           = '/tmp'
 opt.hidden        = true
 
 -- Search
-opt.hlsearch      = true
+opt.hlsearch      = false
 opt.incsearch     = true
 opt.ignorecase    = true
 opt.smartcase     = true
@@ -37,7 +37,7 @@ opt.list          = true
 -- Margin
 opt.foldcolumn     = "2"
 opt.number         = true
-opt.relativenumber = true
+opt.relativenumber = false
 opt.wrap           = false
 opt.signcolumn     = 'yes'
 

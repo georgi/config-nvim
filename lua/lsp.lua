@@ -83,11 +83,6 @@ local on_attach = function(_, bufnr)
   completion.on_attach()
   lsp_signature.on_attach()
 
-  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
-  buf_set_option('expandtab', true)
-  buf_set_option('tabstop', 2)
-  buf_set_option('shiftwidth', 2)
-
   local opts = { noremap=true, silent=true }
 
   -- See `:help vim.lsp.*` for documentation on any of the below functions
