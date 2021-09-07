@@ -17,11 +17,14 @@ require('packer').startup(function()
     use 'neovim/nvim-lspconfig'
     use 'onsails/lspkind-nvim'
     use 'creativenull/diagnosticls-nvim'
-    use 'haorenW1025/completion-nvim'
+    -- use 'haorenW1025/completion-nvim'
+    use {'ms-jpq/coq_nvim', branch = 'coq'}
+    use {'ms-jpq/coq.artifacts', branch = 'artifacts'}
     use 'folke/tokyonight.nvim'
     use 'vijaymarupudi/nvim-fzf'
     use 'ibhagwan/fzf-lua'
     use 'nvim-telescope/telescope-fzy-native.nvim'
+    use 'gelguy/wilder.nvim'
     use {
         'hoob3rt/lualine.nvim',
         requires = {'kyazdani42/nvim-web-devicons', opt = true},
@@ -52,8 +55,11 @@ require'fzf-lua'.setup {
 }
 require('telescope').setup{
     defaults = {
+        layout_strategy = "vertical",
         layout_config = {
-            preview_width = 0.5
+            vertical = {
+                mirror = true
+            }
         }
     }
 }

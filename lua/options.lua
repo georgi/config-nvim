@@ -1,8 +1,5 @@
 local opt = vim.opt
 
--- Fixes
-opt.backspace     = "eol,start,indent"
-
 -- Files
 opt.swapfile      = true
 opt.dir           = '/tmp'
@@ -48,4 +45,4 @@ opt.autoindent     = true
 opt.smartindent    = true
 opt.wrap           = true
 
-opt.switchbuf       = "useopen,usetab,newtab"
+opt.switchbuf      = "useopen,usetab,newtab"
