@@ -11,6 +11,8 @@ opt.incsearch     = true
 opt.ignorecase    = true
 opt.smartcase     = true
 
+opt.mouse         = 'a'
+
 --Editing
 opt.showmatch     = true
 opt.mat           = 2
@@ -26,7 +28,7 @@ opt.splitbelow    = true
 opt.splitright    = true
 opt.termguicolors = true
 opt.background    = 'dark'
-opt.wildmode      = "full"
+opt.wildmode      = "longest"
 opt.wildmenu      = true
 opt.undofile      = true
 opt.list          = true
@@ -45,4 +47,4 @@ opt.autoindent     = true
 opt.smartindent    = true
 opt.wrap           = true
 
-opt.switchbuf      = "useopen,usetab,newtab"
+opt.switchbuf      = "useopen"
