@@ -13,9 +13,10 @@ require('packer').startup(function()
     use 'neovim/nvim-lspconfig'
     use 'onsails/lspkind-nvim'
     use 'creativenull/diagnosticls-nvim'
-    -- use 'haorenW1025/completion-nvim'
-    use {'ms-jpq/coq_nvim', branch = 'coq'}
-    use {'ms-jpq/coq.artifacts', branch = 'artifacts'}
+    use 'hrsh7th/cmp-nvim-lsp'
+    use 'hrsh7th/cmp-buffer'
+    use 'hrsh7th/nvim-cmp'
+    use 'L3MON4D3/LuaSnip'
     use 'folke/tokyonight.nvim'
     use 'vijaymarupudi/nvim-fzf'
     use 'ibhagwan/fzf-lua'
@@ -54,5 +55,4 @@ require('nvim_comment').setup()
 require("trouble").setup {}
 require'terminal'.setup()
 require('lspkind').init()
-require('nvim-tree').setup({
-})
+require('nvim-tree').setup({})
