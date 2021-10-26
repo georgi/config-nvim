@@ -17,33 +17,32 @@ require('packer').startup(function()
     use 'hrsh7th/cmp-buffer'
     use 'hrsh7th/nvim-cmp'
     use 'L3MON4D3/LuaSnip'
+    use 'alvarosevilla95/luatab.nvim'
     use 'folke/tokyonight.nvim'
     use 'vijaymarupudi/nvim-fzf'
     use 'ibhagwan/fzf-lua'
     use 'gelguy/wilder.nvim'
-    use {
-        'hoob3rt/lualine.nvim',
-        requires = {'kyazdani42/nvim-web-devicons', opt = true},
-    }
+    use 'hoob3rt/lualine.nvim'
     use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
     use 'nvim-treesitter/nvim-treesitter-textobjects'
-    use {
-        "folke/trouble.nvim",
-        requires = "kyazdani42/nvim-web-devicons"
-    }
+    use "folke/trouble.nvim"
     use "folke/which-key.nvim"
     use "terrortylor/nvim-comment"
+    use 'chipsenkbeil/distant.nvim'
 end)
 
 vim.cmd[[colorscheme gruvbox-flat]]
 
 require'fzf-lua'.setup {
-    preview_horizontal = 'right:50%',
-    flip_columns = 160,
-    win_height = 0.95,
-    win_width = 0.95,
-    win_border = true,
-    bat_theme = 'gruvbox-dark'
+    winopts = {
+        preview = {
+            horizontal = 'right:50%',
+            flip_columns = 200,
+        },
+        height = 0.95,
+        width = 0.95,
+        border = true,
+    }
 }
 require('lualine').setup {
     options = {
