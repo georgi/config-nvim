@@ -21,7 +21,7 @@ require('packer').startup(function()
     use 'folke/tokyonight.nvim'
     use 'vijaymarupudi/nvim-fzf'
     use 'ibhagwan/fzf-lua'
-    use 'gelguy/wilder.nvim'
+    -- use 'gelguy/wilder.nvim'
     use 'hoob3rt/lualine.nvim'
     use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
     use 'nvim-treesitter/nvim-treesitter-textobjects'

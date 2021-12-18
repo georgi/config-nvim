@@ -15,6 +15,7 @@ vim.cmd[[filetype indent on]]
 
 vim.cmd[[autocmd BufWritePre * :%s/\s\+$//e]]
 vim.cmd[[autocmd FileType lua setlocal shiftwidth=4 softtabstop=4 tabstop=8]]
+vim.cmd[[autocmd BufRead,BufNewFile *.kbd set filetype=kbd]]
 
 -- vim.cmd[[
 -- call wilder#enable_cmdline_enter()
