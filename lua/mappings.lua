@@ -5,6 +5,17 @@ vim.g.mapleader = ' '
 
 local options = { noremap = true, silent = true }
 
+map('n', '<A-s>', ':w<cr>', options)
+map('n', '<A-q>', ':q<cr>', options)
+map('n', '<A-o>', ':FzfLua oldfiles<cr>', options)
+map('n', '<A-r>', ':FzfLua registers<cr>', options)
+map('n', '<A-p>', ':FzfLua files<cr>', options)
+map('n', '<A-b>', ':FzfLua buffers<cr>', options)
+map('n', '<A-g>', ':FzfLua live_grep<cr>', options)
+map('n', '<A-h>', ':FzfLua help_tags<cr>', options)
+map('n', '<A-j>', ':FzfLua blines<cr>', options)
+map('n', '<A-d>', ':FzfLua command_history<cr>', options)
+
 map('n', '0', '^', {})
 map('n', '<leader>w', ':update<cr>', options)
 map('n', '<leader>o', ':FzfLua oldfiles<cr>', options)
