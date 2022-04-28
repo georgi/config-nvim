@@ -22,7 +22,10 @@ require('packer').startup(function()
     use 'vijaymarupudi/nvim-fzf'
     use 'ibhagwan/fzf-lua'
     -- use 'gelguy/wilder.nvim'
-    use 'hoob3rt/lualine.nvim'
+    use {
+          'nvim-lualine/lualine.nvim',
+          requires = { 'kyazdani42/nvim-web-devicons', opt = true }
+    }
     use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
     use 'nvim-treesitter/nvim-treesitter-textobjects'
     use "folke/trouble.nvim"
