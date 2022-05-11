@@ -18,7 +18,11 @@ vim.cmd[[autocmd FileType lua setlocal shiftwidth=4 softtabstop=4 tabstop=8]]
 vim.cmd[[autocmd BufRead,BufNewFile *.kbd set filetype=kbd]]
 
 require('telescope').setup({
-  defaults = {
-    layout_strategy = "bottom_pane",
-  },
+    defaults = {
+        layout_strategy = "bottom_pane",
+        layout_config = {
+            prompt_position = "bottom"
+        }
+    },
 })
+

@@ -12,14 +12,28 @@ require('packer').startup(function()
     use 'wbthomason/packer.nvim'
     use 'neovim/nvim-lspconfig'
     use 'onsails/lspkind-nvim'
-    use 'creativenull/diagnosticls-nvim'
-    use 'hrsh7th/cmp-nvim-lsp'
-    use 'hrsh7th/cmp-buffer'
-    use 'hrsh7th/nvim-cmp'
-    use 'L3MON4D3/LuaSnip'
+    use {
+      'VonHeikemen/lsp-zero.nvim',
+      requires = {
+        -- LSP Support
+        {'neovim/nvim-lspconfig'},
+        {'williamboman/nvim-lsp-installer'},
+
+        -- Autocompletion
+        {'hrsh7th/nvim-cmp'},
+        {'hrsh7th/cmp-buffer'},
+        {'hrsh7th/cmp-path'},
+        {'saadparwaiz1/cmp_luasnip'},
+        {'hrsh7th/cmp-nvim-lsp'},
+        {'hrsh7th/cmp-nvim-lua'},
+
+        -- Snippets
+        {'L3MON4D3/LuaSnip'},
+        {'rafamadriz/friendly-snippets'},
+      }
+    }
     use 'alvarosevilla95/luatab.nvim'
     use 'folke/tokyonight.nvim'
-    -- use 'gelguy/wilder.nvim'
     use {
           'nvim-lualine/lualine.nvim',
           requires = { 'kyazdani42/nvim-web-devicons', opt = true }
@@ -41,17 +55,6 @@ end)
 
 vim.cmd[[colorscheme gruvbox-flat]]
 
--- require'fzf-lua'.setup {
---     winopts = {
---         preview = {
---             horizontal = 'right:50%',
---             flip_columns = 200,
---         },
---         height = 0.95,
---         width = 0.95,
---         border = true,
---     }
--- }
 require('lualine').setup {
     options = {
         theme = 'gruvbox-flat';
