@@ -13,6 +13,7 @@ vim.g.completion_enable_auto_signature = false
 
 require 'vim.lsp.log'.set_level("trace")
 
+
 local cmp = require'cmp'
 local cmp_nvim_lsp = require('cmp_nvim_lsp')
 
@@ -100,61 +101,61 @@ for _, s in ipairs(servers) do
         capabilities = cmp_nvim_lsp.update_capabilities(vim.lsp.protocol.make_client_capabilities()),
     })
 end
-
-local flake8 = {
-    lintCommand = 'flake8 --stdin-display-name "${INPUT}" -',
-    lintStdin = true,
-    lintFormats = {'%f:%l:%c: %m'}
-}
-
-
-local prettier = {
-    formatCommand = 'prettier --stdin --stdin-filepath "${INPUT}"',
-    formatStdin = true
-}
-
-local eslint = {
-    lintCommand = 'eslint -f visualstudio --stdin --stdin-filename "${INPUT}"',
-    lintIgnoreExitCode = true,
-    lintStdin = true,
-    lintFormats = {
-        "%f(%l,%c): %tarning %m",
-        "%f(%l,%c): %rror %m"
-    }
-}
-
-local black = {
-    formatCommand = 'black --quiet -',
-    formatStdin = true
-}
-
-local isort = {
-    formatCommand = 'isort --quiet -',
-    formatStdin = true
-}
-
-nvim_lsp.efm.setup({
-    -- cmd = { "efm-langserver", "-logfile", "/tmp/efm.log" },
-    on_attach = on_attach,
-    init_options = {
-        documentFormatting = true,
-        codeAction = true
-    },
-    filetypes = { 'python', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' },
-    settings = {
-        log_level = 1,
-        log_file = '~/efm.log',
-        rootMarkers = { ".git/", ".hg/" },
-        languages = {
-            python = { flake8, black, isort },
-            javascript = { eslint, prettier },
-            javascriptreact = { eslint, prettier },
-            typescript = { eslint, prettier },
-            typescriptreact = { eslint, prettier }
-        }
-    },
-})
-
+--
+-- local flake8 = {
+--     lintCommand = 'flake8 --stdin-display-name "${INPUT}" -',
+--     lintStdin = true,
+--     lintFormats = {'%f:%l:%c: %m'}
+-- }
+--
+--
+-- local prettier = {
+--     formatCommand = 'prettier --stdin --stdin-filepath "${INPUT}"',
+--     formatStdin = true
+-- }
+--
+-- local eslint = {
+--     lintCommand = 'eslint -f visualstudio --stdin --stdin-filename "${INPUT}"',
+--     lintIgnoreExitCode = true,
+--     lintStdin = true,
+--     lintFormats = {
+--         "%f(%l,%c): %tarning %m",
+--         "%f(%l,%c): %rror %m"
+--     }
+-- }
+--
+-- local black = {
+--     formatCommand = 'black --quiet -',
+--     formatStdin = true
+-- }
+--
+-- local isort = {
+--     formatCommand = 'isort --quiet -',
+--     formatStdin = true
+-- }
+--
+-- nvim_lsp.efm.setup({
+--     -- cmd = { "efm-langserver", "-logfile", "/tmp/efm.log" },
+--     on_attach = on_attach,
+--     init_options = {
+--         documentFormatting = true,
+--         codeAction = true
+--     },
+--     filetypes = { 'python', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' },
+--     settings = {
+--         log_level = 1,
+--         log_file = '~/efm.log',
+--         rootMarkers = { ".git/", ".hg/" },
+--         languages = {
+--             python = { flake8, black, isort },
+--             javascript = { eslint, prettier },
+--             javascriptreact = { eslint, prettier },
+--             typescript = { eslint, prettier },
+--             typescriptreact = { eslint, prettier }
+--         }
+--     },
+-- })
+--
 nvim_lsp.sumneko_lua.setup({
     cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"};
     capabilities = cmp_nvim_lsp.update_capabilities(vim.lsp.protocol.make_client_capabilities()),

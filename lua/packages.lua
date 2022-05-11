@@ -19,8 +19,6 @@ require('packer').startup(function()
     use 'L3MON4D3/LuaSnip'
     use 'alvarosevilla95/luatab.nvim'
     use 'folke/tokyonight.nvim'
-    use 'vijaymarupudi/nvim-fzf'
-    use 'ibhagwan/fzf-lua'
     -- use 'gelguy/wilder.nvim'
     use {
           'nvim-lualine/lualine.nvim',
@@ -32,21 +30,28 @@ require('packer').startup(function()
     use "folke/which-key.nvim"
     use "terrortylor/nvim-comment"
     use 'chipsenkbeil/distant.nvim'
+    use 'liuchengxu/vista.vim'
+    use "EdenEast/nightfox.nvim"
+    use 'nvim-telescope/telescope.nvim'
+    use 'nvim-lua/plenary.nvim'
+    use 'windwp/nvim-autopairs'
+    use 'ggandor/lightspeed.nvim'
+    use {'akinsho/bufferline.nvim', tag = "v2.*"}
 end)
 
 vim.cmd[[colorscheme gruvbox-flat]]
 
-require'fzf-lua'.setup {
-    winopts = {
-        preview = {
-            horizontal = 'right:50%',
-            flip_columns = 200,
-        },
-        height = 0.95,
-        width = 0.95,
-        border = true,
-    }
-}
+-- require'fzf-lua'.setup {
+--     winopts = {
+--         preview = {
+--             horizontal = 'right:50%',
+--             flip_columns = 200,
+--         },
+--         height = 0.95,
+--         width = 0.95,
+--         border = true,
+--     }
+-- }
 require('lualine').setup {
     options = {
         theme = 'gruvbox-flat';
