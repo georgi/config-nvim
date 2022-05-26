@@ -5,14 +5,13 @@ vim.g.mapleader = ' '
 
 local options = { noremap = true, silent = true }
 
-map('n', '0', '^', {})
-
 map('n', '<leader>w', ':update<cr>', options)
-map('n', '<leader>o', ':Telescope oldfiles<cr>', options)
-map('n', '<leader><leader>', ':Telescope buffers<cr>', options)
-map('n', '<leader>n', ':BufferLineCyclePrev<cr>', options)
-map('n', '<leader>m', ':BufferLineCycleNext<cr>', options)
+map('n', '<leader>q', ':bp|bd #<cr>', options)  -- do not change window split
+map('n', '<leader><leader>', ':Telescope oldfiles<cr>', options)
+map('n', '<leader>j', ':BufferLineCyclePrev<cr>', options)
+map('n', '<leader>k', ':BufferLineCycleNext<cr>', options)
 map('n', '<leader>v', ':Vista nvim_lsp<cr>', options)
+map('n', '<leader>b', ':Telescope buffers<cr>', options)
 map('n', '<leader>t', ':Telescope treesitter<cr>', options)
 map('n', '<leader>f', ':Telescope myles<cr>', options)
 map('n', '<leader>e', ':e <C-R>=expand("%:.:h") . "/"<CR>', { noremap = true })
@@ -33,7 +32,7 @@ map('n', '<leader>gr', ':Telescope biggrep r<cr>', options)
 map('n', '<leader><esc>', ':nohlsearch<cr>', options)
 map('x', 'ga', '<Plug>(EasyAlign)', options)
 map('n', 'ga', '<Plug>(EasyAlign)', options)
-map('x', '<C-c>', ':OSCYank<cr>', options)
+map('x', 'p', '"_dP', options) -- first deletes to the black hole
 
 map('n', 'tt', '<cmd>NvimTreeToggle<cr>', options)
 map('n', 'tf', '<cmd>NvimTreeFindFile<cr>', options)
@@ -45,6 +44,7 @@ map("n", "<leader>xd", "<cmd>Trouble lsp_document_diagnostics<cr>", options)
 map("n", "<leader>xl", "<cmd>Trouble loclist<cr>", options)
 map("n", "<leader>xq", "<cmd>Trouble quickfix<cr>", options)
 map("n", "gR", "<cmd>Trouble lsp_references<cr>", options)
+
 
 map('n', '<leader>gs', '<cmd>tabnew term://git status<cr>', options)
 map('n', '<leader>gl', '<cmd>tabnew term://git log<cr>', options)

@@ -1,7 +1,6 @@
 require'packages'
 require'options'
 require'lsp'
--- require'treesitter'
 require'mappings'
 
 vim.cmd[[autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif]]
@@ -25,4 +24,8 @@ require('telescope').setup({
         }
     },
 })
+
+vim.g.gruvbox_flat_style = "hard"
+
+vim.cmd[[colorscheme gruvbox-flat]]
 
