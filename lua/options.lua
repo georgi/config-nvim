@@ -28,7 +28,7 @@ opt.splitbelow    = true
 opt.splitright    = true
 opt.termguicolors = true
 opt.background    = 'dark'
-opt.wildmode      = "longest"
+opt.wildmode      = "full:longest"
 opt.wildmenu      = true
 opt.undofile      = true
 opt.list          = true
@@ -48,3 +48,4 @@ opt.smartindent    = true
 opt.wrap           = true
 
 opt.switchbuf      = "useopen"
+opt.guifont        = "FiraCode Nerd Font"

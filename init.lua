@@ -5,10 +5,6 @@ require'mappings'
 
 vim.cmd[[autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif]]
 
-vim.g.nvim_tree_width = 30
-vim.g.nvim_tree_highlight_opened_files = 1
-vim.g.nvim_tree_ignore = {'.git', 'node_modules', '.cache', '__pycache__'}
-
 vim.cmd[[filetype plugin on]]
 vim.cmd[[filetype indent on]]
 

@@ -1,12 +1,18 @@
 local lspconfig = require'lspconfig'
 local null_ls = require("null-ls")
 local lsp = require('lsp-zero')
-
+local lspkind = require('lspkind')
 lsp.preset('recommended')
 lsp.setup_nvim_cmp({
   sources = {
     { name = 'nvim_lsp' },
     { name = 'nvim_lsp_signature_help' }
+  },
+  formatting = {
+    format = lspkind.cmp_format({
+      mode = 'symbol', -- show only symbol annotations
+      maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+    })
   }
 })
 lsp.nvim_workspace()
