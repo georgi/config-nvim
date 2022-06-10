@@ -29,7 +29,12 @@ require('packer').startup(function(use)
         require('nvim-autopairs').setup()
     end}
     use 'ggandor/lightspeed.nvim'
-    use 'machakann/vim-sandwich'
+    use {
+      "ur4ltz/surround.nvim",
+      config = function()
+        require"surround".setup {mappings_style = "surround"}
+      end
+    }
     use 'junegunn/vim-easy-align'
     use {'max397574/better-escape.nvim', config = function()
         require('better_escape').setup()
@@ -46,16 +51,30 @@ require('packer').startup(function(use)
     use {'kyazdani42/nvim-tree.lua', config = function()
         require('nvim-tree').setup {
             auto_reload_on_write = true,
+            respect_buf_cwd = true,
             view = {
-                width = 80,
-                hide_root_folder = false,
+                adaptive_size = true,
+                -- width = 30,
+                hide_root_folder = true,
                 side = 'left',
-                preserve_window_proportions = true,
             },
         }
     end}
     use {'akinsho/bufferline.nvim', tag = 'v2.*', config = function()
-        require('bufferline').setup{}
+        require('bufferline').setup {
+            options = {
+                offsets = {
+                    {
+                        filetype = "NvimTree",
+                        text = function()
+                            return vim.fn.getcwd()
+                        end,
+                        highlight = "Directory",
+                        text_align = "left"
+                    }
+                }
+            }
+        }
     end}
     use {'hoob3rt/lualine.nvim', config = function()
         require('lualine').setup {
