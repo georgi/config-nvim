@@ -44,6 +44,7 @@ require('packer').startup(function(use)
           open_mapping = [[<C-t>]]
       })
     end}
+    use "tversteeg/registers.nvim"
 
     -- UI Enhancements
     use 'sudormrfbin/cheatsheet.nvim'

@@ -20,6 +20,7 @@ map('n', '<leader>h', ':Telescope help_tags<cr>', options)
 map('n', '<leader>c', ':Telescope command_history<cr>', options)
 -- map('n', '<leader>cm', ':Telescope commands<cr>', options)
 -- map('n', '<leader>km', ':Telescope keymaps<cr>', options)
+
 map('n', '<leader>s', ':Telescope search_history<cr>', options)
 map('n', '<leader>l', ':Telescope lsp_workspace_symbols<cr>', options)
 map('n', '<leader>m', ':Telescope man_pages<cr>', options)
