@@ -64,6 +64,8 @@ require('packer').startup(function(use)
     use {'akinsho/bufferline.nvim', tag = 'v2.*', config = function()
         require('bufferline').setup {
             options = {
+                max_name_length = 25,
+                tab_size = 25,
                 offsets = {
                     {
                         filetype = "NvimTree",

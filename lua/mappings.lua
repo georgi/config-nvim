@@ -26,6 +26,7 @@ map('n', '<leader>l', ':Telescope lsp_workspace_symbols<cr>', options)
 map('n', '<leader>m', ':Telescope man_pages<cr>', options)
 map('n', '<leader>g', ':Telescope live_grep<cr>', options)
 
+map('n', 'gb', ':BufferLinePick<cr>', options)
 map('n', '<leader><esc>', ':nohlsearch<cr>', options)
 map('x', 'ga', '<Plug>(EasyAlign)', options)
 map('n', 'ga', '<Plug>(EasyAlign)', options)
