@@ -5,9 +5,10 @@ require('packer').startup(function(use)
     use 'nvim-lua/plenary.nvim'
 
     -- Color schemes
-    use {'eddyekofo94/gruvbox-flat.nvim', config = function()
-        vim.cmd[[colorscheme gruvbox-flat]]
+    use {'sainnhe/gruvbox-material', config = function()
+        vim.cmd[[colorscheme gruvbox-material]]
     end}
+    use 'ishan9299/nvim-solarized-lua'
     use 'folke/tokyonight.nvim'
     use 'EdenEast/nightfox.nvim'
     use 'monsonjeremy/onedark.nvim'
