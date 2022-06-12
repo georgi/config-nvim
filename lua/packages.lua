@@ -49,7 +49,19 @@ require('packer').startup(function(use)
 
     -- UI Enhancements
     use 'sudormrfbin/cheatsheet.nvim'
-    use 'nvim-telescope/telescope.nvim'
+    use {'nvim-telescope/telescope.nvim', config = function()
+        require('telescope').setup({
+            defaults = {
+                layout_strategy = "vertical",
+                layout_config = {
+                    vertical = {
+                        height = 0.95,
+                    },
+                    prompt_position = "bottom"
+                }
+            },
+        })
+    end}
     use {'kyazdani42/nvim-tree.lua', config = function()
         require('nvim-tree').setup {
             auto_reload_on_write = true,

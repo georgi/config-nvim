@@ -5,8 +5,8 @@ vim.g.mapleader = ' '
 
 local options = { noremap = true, silent = true }
 
-map('n', '<C-j>', ':BufferLineCyclePrev<cr>', options)
-map('n', '<C-k>', ':BufferLineCycleNext<cr>', options)
+map('n', '<C-h>', ':BufferLineCyclePrev<cr>', options)
+map('n', '<C-j>', ':BufferLineCycleNext<cr>', options)
 
 map('n', '<leader>w', ':update<cr>', options)
 map('n', '<leader>q', ':bp|bd #<cr>', options)  -- do not change window split
