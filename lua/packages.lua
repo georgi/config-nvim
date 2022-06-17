@@ -95,7 +95,7 @@ require('packer').startup(function(use)
     use {'hoob3rt/lualine.nvim', config = function()
         require('lualine').setup {
             options = {
-                theme = 'gruvbox-flat';
+                theme = 'gruvbox-material';
             }
         }
     end}
@@ -148,8 +148,10 @@ require('packer').startup(function(use)
                     keymaps = {
                         ['af'] = '@function.outer',
                         ['if'] = '@function.inner',
-                        ['ac'] = '@class.outer',
-                        ['ic'] = '@class.inner',
+                        ['ab'] = '@block.outer',
+                        ['ib'] = '@block.inner',
+                        ['ac'] = '@call.outer',
+                        ['ic'] = '@call.inner',
                     },
                 },
                 swap = {
