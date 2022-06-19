@@ -1,5 +1,8 @@
 local opt = vim.opt
 
+-- UI
+opt.laststatus    = 3
+
 -- Files
 opt.swapfile      = true
 opt.dir           = '/tmp'
