@@ -1,7 +1,7 @@
 local opt = vim.opt
 
 -- UI
-opt.laststatus    = 3
+opt.laststatus    = 3  -- global status line
 
 -- Files
 opt.swapfile      = true
@@ -13,6 +13,7 @@ opt.hlsearch      = false
 opt.incsearch     = true
 opt.ignorecase    = true
 opt.smartcase     = true
+opt.inccommand    = 'split'
 
 opt.mouse         = 'a'
 
