@@ -96,7 +96,15 @@ require('packer').startup(function(use)
         require('lualine').setup {
             options = {
                 theme = 'gruvbox-material';
-            }
+            },
+            sections = {
+                lualine_a = {'mode'},
+                lualine_b = {'branch', 'diff'},
+                lualine_c = {},
+                lualine_x = {'filetype'},
+                lualine_y = {},
+                lualine_z = {'progress'}
+            },
         }
     end}
 
@@ -188,6 +196,8 @@ require('packer').startup(function(use)
             })
         end
     })
+
+    use 'vimpostor/vim-tpipeline'
 end)
 
 
