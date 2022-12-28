@@ -40,11 +40,11 @@ require('packer').startup(function(use)
     use {'max397574/better-escape.nvim', config = function()
         require('better_escape').setup()
     end}
-    use {'akinsho/toggleterm.nvim', tag = 'v1.*', config = function()
-      require('toggleterm').setup({
-          open_mapping = [[<C-t>]]
-      })
-    end}
+    -- use {'akinsho/toggleterm.nvim', tag = 'v1.*', config = function()
+    --   require('toggleterm').setup({
+    --       open_mapping = [[<C-t>]]
+    --   })
+    -- end}
     use "tversteeg/registers.nvim"
 
     -- UI Enhancements
@@ -131,10 +131,14 @@ require('packer').startup(function(use)
     -- LSP Addons
     use 'ray-x/lsp_signature.nvim'
     use 'onsails/lspkind.nvim'
-    use 'liuchengxu/vista.vim'
+    -- use 'liuchengxu/vista.vim'
+    use {'simrat39/symbols-outline.nvim', config = function()
+        require('symbols-outline').setup()
+    end}
     use {'folke/trouble.nvim', config = function()
         require('trouble').setup {}
     end}
+    use 'github/copilot.vim'
 
     -- Treesitter
     use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate', config = function()

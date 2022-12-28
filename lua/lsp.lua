@@ -1,7 +1,8 @@
 local lspconfig = require'lspconfig'
-local null_ls = require("null-ls")
 local lsp = require('lsp-zero')
 local lspkind = require('lspkind')
+local null_ls = require('null-ls')
+
 lsp.preset('recommended')
 lsp.setup_nvim_cmp({
   sources = {
@@ -30,14 +31,11 @@ local on_attach = function(_, bufnr)
     bind('n', '<space>dd', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
     bind('n', '<space>dn', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
     bind('n', '<space>dp', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
-    bind("n", "<space>lf", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+    bind("n", "<space>lf", "<cmd>lua vim.lsp.buf.format { async = true }<CR>", opts)
 end
 
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
-
-local servers = { "hhvm", "pyls@meta", "pyre@meta", "thriftlsp@meta" }
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 local servers = {
     "bashls",
@@ -53,42 +51,17 @@ local servers = {
 }
 
 
-for _, lsp in ipairs(servers) do
-  lspconfig[lsp].setup {
+for _, name in ipairs(servers) do
+  lspconfig[name].setup {
     on_attach = on_attach,
     capabilities = capabilities
   }
 end
---
--- local flake8 = {
---     lintCommand = 'flake8 --stdin-display-name "${INPUT}" -',
---     lintStdin = true,
---     lintFormats = {'%f:%l:%c: %m'}
--- }
---
---
--- local prettier = {
---     formatCommand = 'prettier --stdin --stdin-filepath "${INPUT}"',
---     formatStdin = true
--- }
---
--- local eslint = {
---     lintCommand = 'eslint -f visualstudio --stdin --stdin-filename "${INPUT}"',
---     lintIgnoreExitCode = true,
---     lintStdin = true,
---     lintFormats = {
---         "%f(%l,%c): %tarning %m",
---         "%f(%l,%c): %rror %m"
---     }
--- }
---
--- local black = {
---     formatCommand = 'black --quiet -',
---     formatStdin = true
--- }
---
--- local isort = {
---     formatCommand = 'isort --quiet -',
---     formatStdin = true
--- }
---
+
+
+null_ls.setup({
+    sources = {
+        null_ls.builtins.formatting.prettier,
+        null_ls.builtins.formatting.black,
+    },
+})

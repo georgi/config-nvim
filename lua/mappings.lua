@@ -5,15 +5,35 @@ vim.g.mapleader = ' '
 
 local options = { noremap = true, silent = true }
 
-map('n', '<C-h>', ':BufferLineCyclePrev<cr>', options)
-map('n', '<C-j>', ':BufferLineCycleNext<cr>', options)
+vim.g.copilot_no_tab_map = true
+vim.keymap.set(
+    "i",
+    "<Plug>(vimrc:copilot-dummy-map)",
+    'copilot#Accept("")',
+    { silent = true, expr = true, desc = "Copilot dummy accept" }
+)
+
+local cmp = require("cmp")
+cmp.setup {
+  mapping = {
+    ['<C-l>'] = cmp.mapping(function(_)
+      vim.api.nvim_feedkeys(vim.fn['copilot#Accept'](vim.api.nvim_replace_termcodes('<Tab>', true, true, true)), 'n', true)
+    end)
+  },
+}
+
+map('i', '<C-Space>', '<Plug>(copilot-suggest)', { silent = true })
+map('i', '<C-k>', '<Plug>(copilot-next)', { silent = true })
+map('i', '<C-j>', '<Plug>(copilot-dismiss)', { silent = true })
+
+map('n', '<leader>p', ':BufferLineCyclePrev<cr>', options)
+map('n', '<leader>n', ':BufferLineCycleNext<cr>', options)
 
 map('n', '<leader>w', ':update<cr>', options)
 map('n', '<leader>q', ':bp|bd #<cr>', options)  -- do not change window split
 map('n', '<leader><leader>', ':Telescope oldfiles<cr>', options)
-map('n', '<leader>j', ':BufferLineCyclePrev<cr>', options)
-map('n', '<leader>k', ':BufferLineCycleNext<cr>', options)
-map('n', '<leader>v', ':Vista nvim_lsp<cr>', options)
+-- map('n', '<leader>v', ':Vista nvim_lsp<cr>', options)
+map('n', '<leader>v', ':SymbolsOutline<cr>', options)
 map('n', '<leader>b', ':Telescope buffers<cr>', options)
 map('n', '<leader>t', ':Telescope treesitter<cr>', options)
 
@@ -41,11 +61,6 @@ map('n', 'tf', '<cmd>NvimTreeFindFile<cr>', options)
 
 map('n', '<leader>cd', '<cmd>tcd %:p:h | pwd<cr>', options)
 map("n", "<leader>xx", "<cmd>Trouble<cr>", options)
-map("n", "<leader>xw", "<cmd>Trouble lsp_workspace_diagnostics<cr>", options)
-map("n", "<leader>xd", "<cmd>Trouble lsp_document_diagnostics<cr>", options)
-map("n", "<leader>xl", "<cmd>Trouble loclist<cr>", options)
-map("n", "<leader>xq", "<cmd>Trouble quickfix<cr>", options)
-map("n", "gR", "<cmd>Trouble lsp_references<cr>", options)
 
 
 map('n', '<leader>gs', '<cmd>tabnew term://git status<cr>', options)
