@@ -15,6 +15,9 @@ vim.cmd[[autocmd FileType lua setlocal shiftwidth=2 softtabstop=2 tabstop=2]]
 vim.cmd[[autocmd FileType typescript setlocal shiftwidth=2 softtabstop=2 tabstop=2]]
 vim.cmd[[autocmd FileType typescriptreact setlocal shiftwidth=2 softtabstop=2 tabstop=2]]
 
+-- Only load font in GUI
+-- vim.cmd[[call rpcnotify(1, 'Gui', 'Font', 'FiraCode 13')]]
+
 vim.g.tpipeline_autoembed = 0
 vim.g.gruvbox_flat_style = "hard"
 vim.cmd[[colorscheme tokyonight]]

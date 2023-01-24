@@ -43,7 +43,6 @@ local servers = {
     "gopls",
     "html",
     "yamlls",
-    -- "pyright",
     "pylsp",
     "tsserver",
     "ocamlls",

@@ -87,8 +87,8 @@ map('n', 'tt', '<cmd>NvimTreeToggle<cr>', options)
 map('n', 'tf', '<cmd>NvimTreeFindFile<cr>', options)
 
 map('n', '<leader>cd', '<cmd>tcd %:p:h | pwd<cr>', options)
-map("n", "<leader>xx", "<cmd>Tro  uble document_diagnostics<cr>", options)
 map("n", "<leader>xw", "<cmd>Trouble workspace_diagnostics<cr>", options)
+map("n", "<leader>xx", "<cmd>Trouble document_diagnostics<cr>", options)
 
 
 map('n', '<leader>ts', ':TestSuite<cr>', options)
