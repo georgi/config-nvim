@@ -18,7 +18,6 @@ lsp.setup_nvim_cmp({
 })
 lsp.nvim_workspace()
 lsp.setup()
-
 local on_attach = function(_, bufnr)
     local opts = {buffer = bufnr, remap = false}
     local bind = vim.keymap.set
@@ -27,6 +26,7 @@ local on_attach = function(_, bufnr)
     bind('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
     bind('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
     bind('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
+    bind('n', '<space>la', '<Cmd>lua vim.lsp.buf.code_action()<CR>', opts)
     bind('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
     bind('n', '<space>dd', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
     bind('n', '<space>dn', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
@@ -43,7 +43,8 @@ local servers = {
     "gopls",
     "html",
     "yamlls",
-    "pyright",
+    -- "pyright",
+    "pylsp",
     "tsserver",
     "ocamlls",
     "elmls",
@@ -62,6 +63,7 @@ end
 null_ls.setup({
     sources = {
         null_ls.builtins.formatting.prettier,
-        null_ls.builtins.formatting.black,
+        -- null_ls.builtins.formatting.black,
+        -- null_ls.builtins.diagnostics.mypy,
     },
 })

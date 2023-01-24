@@ -9,12 +9,15 @@ vim.cmd[[filetype plugin on]]
 vim.cmd[[filetype indent on]]
 
 vim.cmd[[autocmd BufWritePre * :%s/\s\+$//e]]
-vim.cmd[[autocmd FileType lua setlocal shiftwidth=4 softtabstop=4 tabstop=8]]
 vim.cmd[[autocmd BufRead,BufNewFile *.kbd set filetype=kbd]]
 vim.cmd[[autocmd BufReadPost,FileReadPost,BufNewFile * call system("tmux rename-window " . expand("%:t"))]]
+vim.cmd[[autocmd FileType lua setlocal shiftwidth=2 softtabstop=2 tabstop=2]]
+vim.cmd[[autocmd FileType typescript setlocal shiftwidth=2 softtabstop=2 tabstop=2]]
+vim.cmd[[autocmd FileType typescriptreact setlocal shiftwidth=2 softtabstop=2 tabstop=2]]
 
 vim.g.tpipeline_autoembed = 0
 vim.g.gruvbox_flat_style = "hard"
+vim.cmd[[colorscheme tokyonight]]
 
 local actions = require('telescope.actions')
 local action_state = require('telescope.actions.state')

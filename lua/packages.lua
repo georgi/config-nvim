@@ -5,9 +5,7 @@ require('packer').startup(function(use)
     use 'nvim-lua/plenary.nvim'
 
     -- Color schemes
-    use {'sainnhe/gruvbox-material', config = function()
-        vim.cmd[[colorscheme gruvbox-material]]
-    end}
+    use 'sainnhe/gruvbox-material'
     use 'ishan9299/nvim-solarized-lua'
     use 'folke/tokyonight.nvim'
     use 'EdenEast/nightfox.nvim'
@@ -21,7 +19,6 @@ require('packer').startup(function(use)
     -- Usability
     use {'terrortylor/nvim-comment', config = function()
         require('nvim_comment').setup()
-        vim.cmd [[ echom 'comment' ]]
     end}
     use {'folke/which-key.nvim', config = function()
         require('which-key').setup()
@@ -46,6 +43,36 @@ require('packer').startup(function(use)
     --   })
     -- end}
     use "tversteeg/registers.nvim"
+    use({
+        "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+        config = function()
+            require("lsp_lines").setup()
+            vim.diagnostic.config({
+                virtual_text = false,
+                virtual_lines = true
+            })
+        end,
+    })
+    use {
+        "cshuaimin/ssr.nvim",
+        module = "ssr",
+        -- Calling setup is optional.
+        config = function()
+            require("ssr").setup {
+                min_width = 50,
+                min_height = 5,
+                max_width = 120,
+                max_height = 25,
+                keymaps = {
+                    close = "q",
+                    next_match = "n",
+                    prev_match = "N",
+                    replace_confirm = "<cr>",
+                    replace_all = "<leader><cr>",
+                },
+            }
+        end
+    }
 
     -- UI Enhancements
     use 'sudormrfbin/cheatsheet.nvim'
@@ -95,12 +122,13 @@ require('packer').startup(function(use)
     use {'hoob3rt/lualine.nvim', config = function()
         require('lualine').setup {
             options = {
-                theme = 'gruvbox-material';
+                -- theme = 'gruvbox-material';
+                theme = 'nightfly';
             },
             sections = {
                 lualine_a = {'mode'},
                 lualine_b = {'branch', 'diff'},
-                lualine_c = {},
+                lualine_c = {'aerial'},
                 lualine_x = {'filetype'},
                 lualine_y = {},
                 lualine_z = {'progress'}
@@ -132,13 +160,32 @@ require('packer').startup(function(use)
     use 'ray-x/lsp_signature.nvim'
     use 'onsails/lspkind.nvim'
     -- use 'liuchengxu/vista.vim'
-    use {'simrat39/symbols-outline.nvim', config = function()
-        require('symbols-outline').setup()
-    end}
+    -- use {'simrat39/symbols-outline.nvim', config = function()
+    --     require('symbols-outline').setup()
+    -- end}
+    use {
+      'stevearc/aerial.nvim',
+      config = function() require('aerial').setup({
+        on_attach = function(bufnr)
+          -- Jump forwards/backwards with '{' and '}'
+          vim.keymap.set('n', '{', '<cmd>AerialPrev<CR>', {buffer = bufnr})
+          vim.keymap.set('n', '}', '<cmd>AerialNext<CR>', {buffer = bufnr})
+        end
+      }) end
+    }
     use {'folke/trouble.nvim', config = function()
         require('trouble').setup {}
     end}
     use 'github/copilot.vim'
+    -- use 'averms/black-nvim'
+    use 'vim-test/vim-test'
+    use {
+        "ThePrimeagen/refactoring.nvim",
+        requires = {
+            {"nvim-lua/plenary.nvim"},
+            {"nvim-treesitter/nvim-treesitter"}
+        }
+    }
 
     -- Treesitter
     use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate', config = function()
